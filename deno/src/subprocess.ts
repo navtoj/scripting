@@ -1,9 +1,6 @@
-// run a shell command
-export const subprocess = async (
-	{ cmd, cwd }: Pick<Deno.RunOptions, 'cmd' | 'cwd'>,
-	output?: (value: string) => void,
-	error?: (value: string) => void
-) => {
+type RunOptions = Pick<Deno.RunOptions, 'cmd' | 'cwd'>;
+
+export const subprocess = async ({ cmd, cwd }: RunOptions) => {
 	const process = Deno.run({
 		cmd,
 		cwd,
@@ -16,13 +13,11 @@ export const subprocess = async (
 		process.stderrOutput(),
 	]);
 	process.close();
-	const process_output = new TextDecoder().decode(stdout).trim();
-	const process_error = new TextDecoder().decode(stderr).trim();
-	if (output) output(process_output);
-	if (error) error(process_error);
+	const output = new TextDecoder().decode(stdout).trim();
+	const error = new TextDecoder().decode(stderr).trim();
 	return {
 		status,
-		output: process_output,
-		error: process_error,
+		output,
+		error,
 	};
 };
