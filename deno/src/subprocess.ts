@@ -1,6 +1,6 @@
 type RunOptions = Pick<Deno.RunOptions, 'cmd' | 'cwd'>;
 
-export const subprocess = async ({ cmd, cwd }: RunOptions) => {
+export const runSubprocess = async ({ cmd, cwd }: RunOptions) => {
 	const process = Deno.run({
 		cmd,
 		cwd,

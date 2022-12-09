@@ -1,8 +1,8 @@
 // deno run --allow-run ./subprocess.ts
-import { subprocess } from '../mod.ts';
+import { runSubprocess } from '../mod.ts';
 
 // run a shell command
-const run = await subprocess({
+const run = await runSubprocess({
 	cmd: ['deno', '--version'],
 });
 
