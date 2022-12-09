@@ -1,23 +1,28 @@
-type RunOptions = Pick<Deno.RunOptions, 'cmd' | 'cwd'>;
+// https://learn.microsoft.com/en-us/javascript/api/@azure/keyvault-certificates/requireatleastone
+type RequireAtLeastOne<T> = {
+	[K in keyof T]-?: Required<Pick<T, K>> &
+		Partial<Pick<T, Exclude<keyof T, K>>>;
+}[keyof T];
 
-export const runSubprocess = async ({ cmd, cwd }: RunOptions) => {
+export const runShell = async (
+	cmd: Deno.RunOptions['cmd'],
+	options?: RequireAtLeastOne<Omit<Deno.RunOptions, 'cmd'>>
+) => {
 	const process = Deno.run({
 		cmd,
-		cwd,
 		stdout: 'piped',
 		stderr: 'piped',
+		...options,
 	});
-	const [status, stdout, stderr] = await Promise.all([
+	const [status, output, stderrOutput] = await Promise.all([
 		process.status(),
 		process.output(),
 		process.stderrOutput(),
 	]);
 	process.close();
-	const output = new TextDecoder().decode(stdout).trim();
-	const error = new TextDecoder().decode(stderr).trim();
 	return {
 		status,
-		output,
-		error,
+		output: new TextDecoder().decode(output).trim(),
+		error: new TextDecoder().decode(stderrOutput).trim(),
 	};
 };
