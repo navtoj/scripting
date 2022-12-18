@@ -1,16 +1,12 @@
-// deno run --allow-read --allow-write ./shell.ts
-import { getDirMax } from '../mod.ts';
+// deno run --allow-run ./shell.ts
+import { subprocess } from '../mod.ts';
 
-// create folders 1-5 in a temp directory
-await Deno.mkdir('temp/1', { recursive: true });
-await Deno.mkdir('temp/2', { recursive: true });
-await Deno.mkdir('temp/3', { recursive: true });
-await Deno.mkdir('temp/4', { recursive: true });
-await Deno.mkdir('temp/5', { recursive: true });
+// run a shell command
+const run = await subprocess(['deno', '--version']);
 
-// get the highest named folder
-const max = await getDirMax('temp');
-console.log(max); // 5
-
-// cleanup temp directory
-await Deno.remove('temp', { recursive: true });
+console.log(run);
+// {
+//   status: { success: true, code: 0 },
+//   output: "deno 1.28.3 (release, x86_64-apple-darwin)\nv8 10.9.194.5\ntypescript 4.8.3",
+//   error: ""
+// }

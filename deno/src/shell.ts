@@ -4,7 +4,7 @@ type RequireAtLeastOne<T> = {
 		Partial<Pick<T, Exclude<keyof T, K>>>;
 }[keyof T];
 
-export const runShell = async (
+export const subprocess = async (
 	cmd: Deno.RunOptions['cmd'],
 	options?: RequireAtLeastOne<Omit<Deno.RunOptions, 'cmd'>>
 ) => {

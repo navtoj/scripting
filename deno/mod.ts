@@ -1,4 +1,3 @@
-export * from './core/path.ts';
-export * from './core/subprocess.ts';
-export * from './standard/console.ts';
-export * from './standard/shell.ts';
+export * from './src/path.ts';
+export * from './src/console.ts';
+export * from './src/shell.ts';
