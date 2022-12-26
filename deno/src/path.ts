@@ -32,10 +32,10 @@ export const getDirContents = async (path: string) => {
 	};
 };
 
-// read text file
+// read text file after making sure it exists
 export const readTextFile = async (path: string) => {
-	const file = await getPathInfo(path);
-	if (file && file.isFile) {
+	const info = await getPathInfo(path);
+	if (info?.isFile) {
 		return await Deno.readTextFile(path);
 	} else {
 		return null;
