@@ -26,18 +26,12 @@ export const getDirContents = async (path: string) => {
 		}
 	}
 	return {
-		folders: dirItems.flatMap(item => (item.isDirectory ? item.name : [])).sort(),
-		files: dirItems.flatMap(item => (item.isFile ? item.name : [])).sort(),
-		symlinks: dirItems.flatMap(item => (item.isSymlink ? item.name : [])).sort(),
+		folders: dirItems
+			.flatMap((item) => (item.isDirectory ? item.name : []))
+			.sort(),
+		files: dirItems.flatMap((item) => (item.isFile ? item.name : [])).sort(),
+		symlinks: dirItems
+			.flatMap((item) => (item.isSymlink ? item.name : []))
+			.sort(),
 	};
-};
-
-// read text file after making sure it exists
-export const readTextFile = async (path: string) => {
-	const info = await getPathInfo(path);
-	if (info?.isFile) {
-		return await Deno.readTextFile(path);
-	} else {
-		return null;
-	}
 };
