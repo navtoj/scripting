@@ -1,3 +1,3 @@
-export * from './src/path.ts';
-export * from './src/console.ts';
-export * from './src/shell.ts';
+export * from './console.ts';
+export * from './path.ts';
+export * from './shell.ts';
