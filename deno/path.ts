@@ -26,12 +26,8 @@ export const getDirContents = async (path: string) => {
 		}
 	}
 	return {
-		folders: dirItems
-			.flatMap((item) => (item.isDirectory ? item.name : []))
-			.sort(),
-		files: dirItems.flatMap((item) => (item.isFile ? item.name : [])).sort(),
-		symlinks: dirItems
-			.flatMap((item) => (item.isSymlink ? item.name : []))
-			.sort(),
+		folders: dirItems.flatMap(item => (item.isDirectory ? item.name : [])).sort(),
+		files: dirItems.flatMap(item => (item.isFile ? item.name : [])).sort(),
+		symlinks: dirItems.flatMap(item => (item.isSymlink ? item.name : [])).sort(),
 	};
 };
