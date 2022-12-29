@@ -1,4 +1,8 @@
-// get info about a single file, folder, or symlink
+/**
+ * get info about a single file, folder, or symlink
+ * @param path to get info about
+ * @returns file info or null if not found
+ */
 export const getPathInfo = async (path: string) => {
 	try {
 		return await Deno.lstat(path);
@@ -11,7 +15,11 @@ export const getPathInfo = async (path: string) => {
 	}
 };
 
-// get list of files, folders, and symlinks in a directory
+/**
+ * Get sorted list of files, folders, and symlinks in a directory
+ * @param path of folder to get contents of
+ * @returns sort format: [ 0, 00, 1, 02, 3, 04, 5, 10, 11, 12, a, B, c ]
+ */
 export const getDirContents = async (path: string) => {
 	const dirItems = [];
 	try {
