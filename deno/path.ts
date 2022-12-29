@@ -25,9 +25,13 @@ export const getDirContents = async (path: string) => {
 			throw error;
 		}
 	}
+	const { compare } = new Intl.Collator(undefined, {
+		numeric: true,
+		usage: 'sort',
+	});
 	return {
-		folders: dirItems.flatMap(item => (item.isDirectory ? item.name : [])).sort(),
-		files: dirItems.flatMap(item => (item.isFile ? item.name : [])).sort(),
-		symlinks: dirItems.flatMap(item => (item.isSymlink ? item.name : [])).sort(),
+		folders: dirItems.flatMap(item => (item.isDirectory ? item.name : [])).sort(compare),
+		files: dirItems.flatMap(item => (item.isFile ? item.name : [])).sort(compare),
+		symlinks: dirItems.flatMap(item => (item.isSymlink ? item.name : [])).sort(compare),
 	};
 };
